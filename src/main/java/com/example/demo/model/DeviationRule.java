@@ -1,1 +1,1 @@
-package com.example.demo.Deviation;
+package com.example.demo.DeviationRule;
