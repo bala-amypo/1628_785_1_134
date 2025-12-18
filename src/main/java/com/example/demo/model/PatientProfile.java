@@ -68,7 +68,9 @@ public class PatientProfile {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public PatientProfile(Long id,@Column (unique=true) String patientId, String fullName, int age,@Column(unique=true) String email, String surgeryType,
+    public PatientProfile(Long id,
+     String patientId, String fullName, int age, 
+    String email, String surgeryType,
             Boolean active, LocalDateTime createdAt) {
         this.id = id;
         this.patientId = patientId;
