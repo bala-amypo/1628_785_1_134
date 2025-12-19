@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
