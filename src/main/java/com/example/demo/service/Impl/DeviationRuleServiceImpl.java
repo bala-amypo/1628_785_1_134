@@ -25,6 +25,11 @@ public class DeviationRuleServiceImpl implements DeviationRuleService{
    return Rule.findAllRules();
 
 }
+@Override
+   public List<RecoveryCurveProfile >getAllCurves(){
+   return Recovery.findAll();
+
+}
 
 
 }
