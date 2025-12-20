@@ -17,11 +17,11 @@ public class AuthController {
         this.AS=AS;
     }
     @PostMapping("/PM")
-    public AppUser sendcreateregis(@RequestBody AppUser regis){
+    public String sendcreateregis(@RequestBody AppUser regis){
         return AS.createregis(regis);
     }
     @PostMapping("/pm")
-    public AppUser sendcreatelogi(@RequestBody AppUser logi){
+    public String sendcreatelogi(@RequestBody AppUser logi){
         return AS.createlogi(logi);
     }
 }
