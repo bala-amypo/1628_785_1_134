@@ -8,9 +8,12 @@ import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.AuthService;
 @Service
 public class AuthServiceImpl implements AuthService{
-    @Autowired AppUserRepository AU;
+    @Autowired AppUserRepository AUR;
     @Override
-    public AppUser createPatient (AppUser regis){
-        return PatientPro.save(regis);
+    public AppUser createregis (AppUser regis){
+        return AUR.save(regis);
     }
+    @Override
+    public AppUser createlogi (AppUser logi){
+        return AUR.save());
     }
