@@ -16,7 +16,7 @@ public class DeviationRuleServiceImpl implements DeviationRuleService{
         return Rule.save(rule);
     }
     @Override
-  public List<DeviationRule>getCurveForSurgery(String surgeryType){
+  public List<DeviationRule>getBySurgery(String surgeryType){
       return Rule.findBySurgeryTypeContaining(surgeryType);
 
    }
