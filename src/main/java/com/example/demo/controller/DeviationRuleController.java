@@ -20,7 +20,7 @@ public class DeviationRuleController {
         return DRS.createCurveEntry(rule);
     }
     @GetMapping("/GETMAP/{id}")
-   public List<RDeviationRule> getgetRulesForSurgery(@PathVariable String surgeryType){
+   public List<DeviationRule> getgetRulesForSurgery(@PathVariable String surgeryType){
       return DRS.getRulesForSurgery(surgeryType);
    }
    @GetMapping("/GETMAP")
