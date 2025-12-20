@@ -11,7 +11,11 @@ import com.example.demo.service.AuthService;
 
 @RestController
 public class AuthController {
-    @Autowired AuthService AS;
+    // @Autowired AuthService AS;
+    private final AuthService AS;
+    public AuthController(AuthService AS){
+        
+    }
     @PostMapping("/PM")
     public AppUser sendcreateregis(@RequestBody AppUser regis){
         return AS.createregis(regis);
