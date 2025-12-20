@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.PatientProfile;
-import com.example.demo.repository.PatientProfileRepository;
-import com.example.demo.service.PatientProfileService;
+import com.example.demo.model.RecoveryCurveProfile;
+import com.example.demo.repository.RecoveryCurveRepository;
+import com.example.demo.service.RecoveryCurveService;
 @Service
 public class PatientProfileServiceImpl implements PatientProfileService{
     @Autowired PatientProfileRepository PatientPro;
