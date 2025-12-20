@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.PatientProfile;
 import com.example.demo.repository.PatientProfileRepository;
-
+import com.example.demo.service.PatientProfileService;
 @Service
 public class PatientProfileServiceImpl implements PatientProfileService{
-    @Autowired PatientProfileRepository patientp;
+    @Autowired PatientProfileRepository PatientPro;
     @Override
-    PatientProfile createPatient (PatientProfile patient){
-        return patientp.save(patient);
-
+    public PatientProfile createPatient (PatientProfile patient){
+        return PatientPro.save(patient);
     }
+
 }
