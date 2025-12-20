@@ -3,5 +3,6 @@ package com.example.demo.service;
 import com.example.demo.model.AppUser;
 
 public interface PatientProfileService {
-    PatientProfile createPatient (PatientProfile patient);
+    AppUser createregis (AppUser regis);
+    AppUser createlogi (AppUser logi);
 }
