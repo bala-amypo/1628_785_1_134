@@ -1,5 +1,7 @@
 package com.example.demo.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,20 @@ public class PatientProfileServiceImpl implements PatientProfileService{
     public PatientProfile getPatientById(Long id){
         return PatientPro.findById(id).orElse(null);
     }
+    @Override
+   public List<PatientProfile >getAllPatients(){
+   return PatientPro.findAll();
+
+}
+@Override
+public PatientProfile updatePatientStatus(Long id,Boolean active){
+    PatientProfile p=PatientPro.findById(id).orElse(null);
+    if(p!=null){
+        p.setActive(!p.getActive());
+
+        return PatientPro.save(p);
+    }
+    return null;
+}
 
 }
