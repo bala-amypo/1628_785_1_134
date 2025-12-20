@@ -14,7 +14,7 @@ public class AuthController {
     // @Autowired AuthService AS;
     private final AuthService AS;
     public AuthController(AuthService AS){
-        
+        this.AS=AS;
     }
     @PostMapping("/PM")
     public AppUser sendcreateregis(@RequestBody AppUser regis){
