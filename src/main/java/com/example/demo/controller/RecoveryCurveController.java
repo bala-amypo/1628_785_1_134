@@ -15,7 +15,7 @@ import com.example.demo.service.RecoveryCurveService;
 @RestController
 public class RecoveryCurveController {
     @Autowired RecoveryCurveService RCS;
-    @PostMapping("/POST")
+    @PostMapping("/POSTMAP")
     public RecoveryCurveProfile sendcreateCurveEntry(@RequestBody RecoveryCurveProfile entry){
         return RCS.createCurveEntry(entry);
     }
@@ -23,7 +23,7 @@ public class RecoveryCurveController {
 //    public RecoveryCurveProfile getgetPatientById(@PathVariable Long id){
 //      return PPS.getPatientById(id);
 //    }
-   @GetMapping("/GET")
+   @GetMapping("/GETMAP")
    public List<RecoveryCurveProfile>getgetAllCurves(){
     return RCS.getAllCurves();
    }
