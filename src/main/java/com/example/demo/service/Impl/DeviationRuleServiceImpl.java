@@ -12,7 +12,7 @@ import com.example.demo.service.DeviationRuleService;
 public class DeviationRuleServiceImpl implements DeviationRuleService{
     @Autowired DeviationRuleRepository Rule;
     @Override
-    public DeviationRule createCurveEntry (DeviationRule rule){
+    public DeviationRule createRule (DeviationRule rule){
         return Rule.save(rule);
     }
     @Override

@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.demo.model.DeviationRule;
 
 public interface DeviationRuleService{
-DeviationRule createCurveEntry(DeviationRule curve);
+DeviationRule createRule(DeviationRule rule);
 List<DeviationRule> getRulesBySurgery(String surgeryType);
 List<DeviationRule> getAllRules();
 }
