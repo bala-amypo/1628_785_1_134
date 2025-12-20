@@ -21,7 +21,7 @@ public class RecoveryCurveServiceImpl implements RecoveryCurveService{
 
 }
 @Override
-  public List<RecoveryCurveProfile>getCurveForSurgery(@PathVariable String surgeryType){
+  public List<RecoveryCurveProfile>getCurveForSurgery(String surgeryType){
       return repo.findBySurgeryTypeContaining(surgeryType);
 
    }
