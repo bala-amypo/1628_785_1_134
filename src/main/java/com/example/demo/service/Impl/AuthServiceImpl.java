@@ -8,7 +8,10 @@ import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.AuthService;
 @Service
 public class AuthServiceImpl implements AuthService{
-    @Autowired AppUserRepository AUR;
+    // @Autowired AppUserRepository AUR;
+    private final AppUserRepository AUR;
+    public 
+
     @Override
     public String createregis (AppUser regis){
             AUR.save(regis);
