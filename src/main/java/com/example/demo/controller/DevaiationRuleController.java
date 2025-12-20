@@ -16,16 +16,16 @@ import com.example.demo.service.DeviationRuleService;
 public class DeviationRuleController {
     @Autowired DeviationRuleService DRS;
     @PostMapping("/POSTMAP")
-    public DeviationRule sendcreateCurveEntry(@RequestBody DeviationRule entry){
-        return DRS.createCurveEntry(entry);
+    public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
+        return DRS.createCurveEntry(rule);
     }
     @GetMapping("/GETMAP/{id}")
-   public List<RDeviationRule> getgetCurveForSurgery(@PathVariable String surgeryType){
-      return DRS.getCurveForSurgery(surgeryType);
+   public List<RDeviationRule> getgetRulesForSurgery(@PathVariable String surgeryType){
+      return DRS.getRulesForSurgery(surgeryType);
    }
    @GetMapping("/GETMAP")
-   public List<DeviationRule>getgetAllCurves(){
-    return DRS.getAllCurves();
+   public List<DeviationRule>getgetAllRules(){
+    return DRS.getAllRules();
    }
 
    
