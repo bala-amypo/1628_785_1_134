@@ -13,5 +13,9 @@ public class PatientProfileServiceImpl implements PatientProfileService{
     public PatientProfile createPatient (PatientProfile patient){
         return PatientPro.save(patient);
     }
+    @Override
+    public PatientProfile getPatientById(Long id){
+        return PatientPro.findById(id).orElse(null);
+    }
 
 }
