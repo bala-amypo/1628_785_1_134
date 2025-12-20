@@ -7,7 +7,7 @@ import com.example.demo.model.RecoveryCurveProfile;
 
 
     @Repository
-public interface  PatientProfileRepository extends JpaRepository <RecoveryCurveProfile,Long>{
+public interface   extends JpaRepository <RecoveryCurveProfile,Long>{
   
 }
 
