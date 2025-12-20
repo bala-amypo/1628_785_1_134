@@ -9,15 +9,15 @@ import com.example.demo.model.RecoveryCurveProfile;
 import com.example.demo.repository.RecoveryCurveRepository;
 import com.example.demo.service.RecoveryCurveService;
 @Service
-public class PatientProfileServiceImpl implements PatientProfileService{
-    @Autowired PatientProfileRepository PatientPro;
+public class RecoveryCurveServiceImpl implements RecoveryCurveService{
+    @Autowired RecoveryCurveProfileRepository Recovery;
     @Override
-    public PatientProfile createPatient (PatientProfile patient){
-        return PatientPro.save(patient);
+    public RecoveryCurveProfile createCurveEntry (RecoveryCurveProfile patient){
+        return Recovery.save(patient);
     }
     @Override
-   public List<PatientProfile >getAllPatients(){
-   return PatientPro.findAll();
+   public List<RecoveryCurveProfile >getAllPatients(){
+   return Recovery.findAll();
 
 }
 
