@@ -10,7 +10,9 @@ import com.example.demo.service.AuthService;
 public class AuthServiceImpl implements AuthService{
     // @Autowired AppUserRepository AUR;
     private final AppUserRepository AUR;
-    public 
+    public AuthServiceImpl(AppUserRepository AUR){
+        this.AUR=AUR;
+    }
 
     @Override
     public String createregis (AppUser regis){
