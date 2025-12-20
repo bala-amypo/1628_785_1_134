@@ -12,11 +12,11 @@ import com.example.demo.service.RecoveryCurveService;
 public class RecoveryCurveServiceImpl implements RecoveryCurveService{
     @Autowired RecoveryCurveProfileRepository Recovery;
     @Override
-    public RecoveryCurveProfile createCurveEntry (RecoveryCurveProfile patient){
-        return Recovery.save(patient);
+    public RecoveryCurveProfile createCurveEntry (RecoveryCurveProfile entry){
+        return Recovery.save(entry);
     }
     @Override
-   public List<RecoveryCurveProfile >getAllPatients(){
+   public List<RecoveryCurveProfile >getAllCurves(){
    return Recovery.findAll();
 
 }
