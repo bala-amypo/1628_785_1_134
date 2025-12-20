@@ -19,10 +19,10 @@ public class RecoveryCurveController {
     public RecoveryCurveProfile sendcreateCurveEntry(@RequestBody RecoveryCurveProfile entry){
         return RCS.createCurveEntry(entry);
     }
-    @GetMapping("/GETMAP/{id}")
-   public List<RecoveryCurveProfile> getgetCurveForSurgery(@PathVariable String surgeryType){
-      return RCS.getCurveForSurgery(surgeryType);
-   }
+    @GetMapping("/GETMAP/{surgeryType}")
+public List<RecoveryCurveProfile> getCurveForSurgery(@PathVariable String surgeryType) {
+    return RCS.getCurveForSurgery(surgeryType);
+}
    @GetMapping("/GETMAP")
    public List<RecoveryCurveProfile>getgetAllCurves(){
     return RCS.getAllCurves();
