@@ -27,5 +27,4 @@ public class RecoveryCurveController {
    public List<RecoveryCurveProfile>getgetAllCurves(){
     return RCS.getAllCurves();
    }
-
 }
