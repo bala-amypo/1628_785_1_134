@@ -8,5 +8,5 @@ import com.example.demo.model.DeviationRule;
 
 @Repository
 public interface DeviationRuleRepository extends JpaRepository <DeviationRule,Long>{
-    
+     List<DeviationRule> findBySurgeryTypeContaining(String value);
 }
