@@ -7,6 +7,6 @@ import com.example.demo.model.DeviationRule;
 public interface DeviationRuleService{
 DeviationRule createCurveEntry(DeviationRule curve);
 List<DeviationRule> getCurveForSurgery(String surgeryType);
-List<DeviationRule> getAllCurves();
+List<DeviationRule> getAllRules();
 }
 
