@@ -11,9 +11,9 @@ import com.example.demo.service.PatientProfileService;
 
 @RestController
 public class AuthController {
-    @Autowired Service PPS;
-    @PostMapping("/POST")
-    public AppUser sendcreatePatient(@RequestBody AppUser patient){
-        return PPS.createPatient(patient);
+    @Autowired AuthService AS;
+    @PostMapping("/PM")
+    public AppUser sendcreateregis(@RequestBody AppUser regis){
+        return AS.createregis(regis);
     }
 }
