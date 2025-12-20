@@ -15,5 +15,6 @@ public class AuthServiceImpl implements AuthService{
     }
     @Override
     public AppUser createlogi (AppUser logi){
-        return AUR.save());
+        return AUR.save(logi);
     }
+}
