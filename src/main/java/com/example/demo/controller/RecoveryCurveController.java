@@ -20,7 +20,7 @@ public class RecoveryCurveController {
         return RCS.createCurveEntry(entry);
     }
     @GetMapping("/GETMAP/{id}")
-   public RecoveryCurveProfile getCurveForSurgery(@PathVariable String surgeryType){
+   public List<RecoveryCurveProfile> getCurveForSurgery(@PathVariable String surgeryType){
       
    }
    @GetMapping("/GETMAP")
