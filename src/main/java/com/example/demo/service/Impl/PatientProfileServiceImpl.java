@@ -7,7 +7,7 @@ import com.example.demo.model.PatientProfile;
 import com.example.demo.repository.PatientProfileRepository;
 
 @Service
-public interface PatientProfileServiceImpl implements PatientProfileService{
+public class PatientProfileServiceImpl implements PatientProfileService{
     @Autowired PatientProfileRepository patientp;
     @Override
     PatientProfile createPatient (PatientProfile patient){
