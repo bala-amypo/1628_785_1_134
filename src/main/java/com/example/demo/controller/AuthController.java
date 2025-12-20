@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.AppUser;
-import com.example.demo.service.PatientProfileService;
+import com.example.demo.service.AppUserService;
 
 @RestController
 public class AuthController {
     @Autowired AuthService AS;
+    @PostMapping("/PM")
+    public AppUser sendcreateregis(@RequestBody AppUser regis){
+        return AS.createregis(regis);
+    }
     @PostMapping("/PM")
     public AppUser sendcreateregis(@RequestBody AppUser regis){
         return AS.createregis(regis);
