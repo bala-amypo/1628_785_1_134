@@ -17,11 +17,11 @@ public class DeviationRuleController {
     @Autowired DeviationRuleService DRS;
     @PostMapping("/POSTMAP")
     public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
-        return DRS.createCurveEntry(rule);
+        return DRS.createcreateRule(rule);
     }
     @GetMapping("/GETMAP/{id}")
-   public List<DeviationRule> getgetRulesForSurgery(@PathVariable String surgeryType){
-      return DRS.getRulesForSurgery(surgeryType);
+   public List<DeviationRule> getgetRulesBySurgery(@PathVariable String surgeryType){
+      return DRS.getRulesBySurgery(surgeryType);
    }
    @GetMapping("/GETMAP")
    public List<DeviationRule>getgetAllRules(){
