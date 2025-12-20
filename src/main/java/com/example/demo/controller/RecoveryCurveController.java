@@ -20,19 +20,13 @@ public class PatientProfileController {
     public PatientProfile sendcreatePatient(@RequestBody PatientProfile patient){
         return PPS.createPatient(patient);
     }
-    @GetMapping("/GET/{id}")
-   public PatientProfile getgetPatientById(@PathVariable Long id){
-     return PPS.getPatientById(id);
-   }
+//     @GetMapping("/GET/{id}")
+//    public PatientProfile getgetPatientById(@PathVariable Long id){
+//      return PPS.getPatientById(id);
+//    }
    @GetMapping("/GET")
    public List<PatientProfile>getgetAllPatients(){
     return PPS.getAllPatients();
    }
-
-   @PutMapping("/PUT/{id}/status")
-   public PatientProfile putupdatePatientStatus(@PathVariable Long id,@RequestBody Boolean active){
-    return PPS.updatePatientStatus(id,active);
-   }
-
 
 }
