@@ -11,10 +11,13 @@ public class AuthServiceImpl implements AuthService{
     @Autowired AppUserRepository AUR;
     @Override
     public String createregis (AppUser regis){
-               AUR.save(regis);
+            AUR.save(regis);
+               return "Register Successfully";
     }
     @Override
     public String createlogi (AppUser logi){
-        return AUR.save(logi);
+             AUR.save(logi);
+               return "Logic Successfully";
+
     }
 }
