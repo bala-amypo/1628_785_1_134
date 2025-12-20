@@ -30,7 +30,7 @@ public class PatientProfileController {
    }
 
    @PutMapping("/PUT/{id}/status")
-   public PatientProfile putupdatePatientStatus(@PathVariable Long id,@RequestBody PatientProfile patient){
+   public PatientProfile putupdatePatientStatus(@PathVariable Long id,@RequestBody Boolean active){
     return PPS.updatePatientStatus(id,active);
    }
 
