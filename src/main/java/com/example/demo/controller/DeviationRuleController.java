@@ -17,7 +17,7 @@ public class DeviationRuleController {
     @Autowired DeviationRuleService DRS;
     @PostMapping("/POSTMAP")
     public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
-        return DRS.createcreateRule(rule);
+        return DRS.createRule(rule);
     }
     @GetMapping("/GETMAP/{id}")
    public List<DeviationRule> getgetRulesBySurgery(@PathVariable String surgeryType){
