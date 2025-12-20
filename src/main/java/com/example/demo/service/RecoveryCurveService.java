@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.model.RecoveryCurveProfile;
 
-public interface RecoveryCurveProfile{
+public interface RecoveryCurveService{
 RecoveryCurveProfile createCurveEntry(RecoveryCurveProfile curve);
 // List<RecoveryCurveProfile> getCurveForSurgery(String surgeryType);
 List<RecoveryCurveProfile> getAllCurves();
