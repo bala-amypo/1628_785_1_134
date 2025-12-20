@@ -15,7 +15,11 @@ import com.example.demo.service.PatientProfileService;
 
 @RestController
 public class PatientProfileController {
-    @Autowired PatientProfileService PPS;
+    // @Autowired PatientProfileService PPS;
+    private final PatientProfileService PPS;
+    public PatientProfileController(PatientProfileService PPS){
+        this.PPS=PPS;
+    }
     @PostMapping("/POST")
     public PatientProfile sendcreatePatient(@RequestBody PatientProfile patient){
         return PPS.createPatient(patient);
