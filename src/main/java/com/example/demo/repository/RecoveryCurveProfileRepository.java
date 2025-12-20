@@ -8,7 +8,7 @@ import com.example.demo.model.RecoveryCurveProfile;
 
     @Repository
 public interface  RecoveryCurveProfileRepository extends JpaRepository <RecoveryCurveProfile,Long>{
-  
+   List<RecoveryCurveProfile> findBySurgeryTypeContaining(String value);
 }
 
 
