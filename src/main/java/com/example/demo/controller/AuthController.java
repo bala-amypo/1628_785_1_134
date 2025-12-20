@@ -16,8 +16,8 @@ public class AuthController {
     public AppUser sendcreateregis(@RequestBody AppUser regis){
         return AS.createregis(regis);
     }
-    @PostMapping("/PM")
-    public AppUser sendcreateregis(@RequestBody AppUser regis){
-        return AS.createregis(regis);
+    @PostMapping("/pm")
+    public AppUser sendcreatelogi(@RequestBody AppUser logi){
+        return AS.createlogi(logi);
     }
 }
