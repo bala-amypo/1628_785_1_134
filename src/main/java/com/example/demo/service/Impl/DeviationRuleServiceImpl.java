@@ -10,19 +10,19 @@ import com.example.demo.repository.DeviationRuleRepository;
 import com.example.demo.service.DeviationRuleService;
 @Service
 public class DeviationRuleServiceImpl implements DeviationRuleService{
-    @Autowired RecoveryCurveProfileRepository Recovery;
+    @Autowired DeviationRuleRepository Rule;
     @Override
-    public RecoveryCurveProfile createCurveEntry (RecoveryCurveProfile entry){
-        return Recovery.save(entry);
+    public DeviationRule createCurveEntry (DeviationRule rule){
+        return Rule.save(rule);
     }
     @Override
-   public List<RecoveryCurveProfile >getAllCurves(){
-   return Recovery.findAll();
+   public List<DeviationRule>getAllCurves(){
+   return Rule.findAll();
 
 }
 @Override
-  public List<RecoveryCurveProfile>getCurveForSurgery(String surgeryType){
-      return Recovery.findBySurgeryTypeContaining(surgeryType);
+  public List<DeviationRule>getCurveForSurgery(String surgeryType){
+      return Rule.findBySurgeryTypeContaining(surgeryType);
 
    }
 
