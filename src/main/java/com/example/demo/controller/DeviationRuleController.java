@@ -14,7 +14,11 @@ import com.example.demo.service.DeviationRuleService;
 
 @RestController
 public class DeviationRuleController {
-    @Autowired DeviationRuleService DRS;
+    // @Autowired DeviationRuleService DRS;
+    private final DeviationRuleService DRS;
+    public DeviationRuleController(DeviationRuleService DRS){
+    this.DRS=DRS;
+    }
     @PostMapping("/POMA")
     public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
         return DRS.createRule(rule);

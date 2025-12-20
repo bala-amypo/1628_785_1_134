@@ -10,7 +10,11 @@ import com.example.demo.repository.DeviationRuleRepository;
 import com.example.demo.service.DeviationRuleService;
 @Service
 public class DeviationRuleServiceImpl implements DeviationRuleService{
-    @Autowired DeviationRuleRepository Rule;
+    // @Autowired DeviationRuleRepository Rule;
+    private final DeviationRuleRepository Rule;
+    public DeviationRuleServiceImpl(DeviationRuleRepository Rule){
+         this.Rule=Rule;
+    }
     @Override
     public DeviationRule createRule (DeviationRule rule){
         return Rule.save(rule);
