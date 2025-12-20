@@ -10,7 +10,11 @@ import com.example.demo.repository.RecoveryCurveProfileRepository;
 import com.example.demo.service.RecoveryCurveService;
 @Service
 public class RecoveryCurveServiceImpl implements RecoveryCurveService{
-    @Autowired RecoveryCurveProfileRepository Recovery;
+    // @Autowired RecoveryCurveProfileRepository Recovery;
+    private final  RecoveryCurveProfileRepository Recovery;
+    public RecoveryCurveServiceImpl(RecoveryCurveProfileRepository Recovery){
+         this.Recovery=Recovery;
+    }
     @Override
     public RecoveryCurveProfile createCurveEntry (RecoveryCurveProfile entry){
         return Recovery.save(entry);

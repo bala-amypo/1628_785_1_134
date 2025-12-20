@@ -14,7 +14,11 @@ import com.example.demo.service.RecoveryCurveService;
 
 @RestController
 public class RecoveryCurveController {
-    @Autowired RecoveryCurveService RCS;
+    // @Autowired RecoveryCurveService RCS;
+    private final RecoveryCurveService RCS;
+    public RecoveryCurveController(RecoveryCurveService RCS){
+    this.RCS=RCS;
+    }
     @PostMapping("/POSTMAP")
     public RecoveryCurveProfile sendcreateCurveEntry(@RequestBody RecoveryCurveProfile entry){
         return RCS.createCurveEntry(entry);
