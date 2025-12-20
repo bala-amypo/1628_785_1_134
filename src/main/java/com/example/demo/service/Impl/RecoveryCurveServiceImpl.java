@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.RecoveryCurveProfile;
-import com.example.demo.repository.RecoveryCurveRepository;
+import com.example.demo.repository.RecoveryCurveProfileRepository;
 import com.example.demo.service.RecoveryCurveService;
 @Service
 public class RecoveryCurveServiceImpl implements RecoveryCurveService{
