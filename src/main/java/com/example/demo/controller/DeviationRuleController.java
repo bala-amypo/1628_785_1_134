@@ -15,15 +15,15 @@ import com.example.demo.service.DeviationRuleService;
 @RestController
 public class DeviationRuleController {
     @Autowired DeviationRuleService DRS;
-    @PostMapping("/POSTMAP")
+    @PostMapping("/POMA")
     public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
         return DRS.createRule(rule);
     }
-    @GetMapping("/GETMAP/{id}")
+    @GetMapping("/GEMA/{id}")
    public List<DeviationRule> getgetRulesBySurgery(@PathVariable String surgeryType){
       return DRS.getRulesBySurgery(surgeryType);
    }
-   @GetMapping("/GETMAP")
+   @GetMapping("/GEMA")
    public List<DeviationRule>getgetAllRules(){
     return DRS.getAllRules();
    }
