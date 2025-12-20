@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.AppUser;
-import com.example.demo.service.AppUserService;
+import com.example.demo.service.AuthService;
 
 @RestController
 public class AuthController {
