@@ -22,12 +22,7 @@ public class DeviationRuleServiceImpl implements DeviationRuleService{
    }
     @Override
    public List<DeviationRule>getAllRules(){
-   return Rule.findAllRules();
-
-}
-@Override
-   public List<RecoveryCurveProfile >getAllCurves(){
-   return Recovery.findAll();
+   return Rule.findAll();
 
 }
 
