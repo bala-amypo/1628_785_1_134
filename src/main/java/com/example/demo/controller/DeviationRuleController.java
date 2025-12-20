@@ -19,7 +19,7 @@ public class DeviationRuleController {
     public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
         return DRS.createRule(rule);
     }
-    @GetMapping("/GEMA/{id}")
+    @GetMapping("/GEMA/{surgeryType}")
    public List<DeviationRule> getgetRulesBySurgery(@PathVariable String surgeryType){
       return DRS.getRulesBySurgery(surgeryType);
    }
