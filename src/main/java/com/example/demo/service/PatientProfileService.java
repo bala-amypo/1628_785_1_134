@@ -4,6 +4,6 @@ import com.example.demo.model.PatientProfile;
 
 public interface PatientProfileService {
     PatientProfile createPatient (PatientProfile patient);
-    StudentEntity getPatientById(Long id);
+    PatientProfile getPatientById(Long id);
 }
 
