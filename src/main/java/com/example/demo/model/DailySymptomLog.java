@@ -23,7 +23,8 @@ public class DailySymptomLog {
     private LocalDate logDate;
     private int painLevel;
     private int mobilityLevel;
-    private Boolean active;
-    private LocalDateTime createdAt;
+    private int fatigueLevel;
+    private String notes;
+    private LocalDateTime submittedAt;
     
 }
