@@ -10,26 +10,10 @@ import com.example.demo.repository.PatientProfileRepository;
 import com.example.demo.service.PatientProfileService;
 @Service
 public class PatientProfileServiceImpl implements PatientProfileService{
-    // @Autowired PatientProfileRepository PatientPro;
     private final PatientProfileRepository PatientPro;
     public PatientProfileServiceImpl(PatientProfileRepository PatientPro){
     this.PatientPro=PatientPro;
     }
-@Override
-public PatientProfile createPatient(PatientProfile patient) {
-
-    // 🔒 Check duplicate email
-    if (PatientPro.existsByEmail(patient.getEmail())) {
-        throw new IllegalArgumentException("Email already exists");
-    }
-
-    return PatientPro.save(patient);
-}
-
-
-
-
-
     @Override
     public PatientProfile createPatient (PatientProfile patient){
         return PatientPro.save(patient);
