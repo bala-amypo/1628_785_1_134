@@ -15,9 +15,15 @@ public class PatientProfileServiceImpl implements PatientProfileService{
     this.PatientPro=PatientPro;
     }
     @Override
-    public PatientProfile createPatient (PatientProfile patient){
-        return PatientPro.save(patient);
+public PatientProfile createPatient(PatientProfile patient){
+
+    if (PatientPro.existsByEmail(patient.getEmail())) {
+        throw new IllegalArgumentException("Email already exists");
     }
+
+    return PatientPro.save(patient);
+}
+
     @Override
     public PatientProfile getPatientById(Long id){
         return PatientPro.findById(id).orElse(null);
