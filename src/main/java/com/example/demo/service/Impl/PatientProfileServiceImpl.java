@@ -15,6 +15,21 @@ public class PatientProfileServiceImpl implements PatientProfileService{
     public PatientProfileServiceImpl(PatientProfileRepository PatientPro){
     this.PatientPro=PatientPro;
     }
+@Override
+public PatientProfile createPatient(PatientProfile patient) {
+
+    // 🔒 Check duplicate email
+    if (PatientPro.existsByEmail(patient.getEmail())) {
+        throw new IllegalArgumentException("Email already exists");
+    }
+
+    return PatientPro.save(patient);
+}
+
+
+
+
+
     @Override
     public PatientProfile createPatient (PatientProfile patient){
         return PatientPro.save(patient);
