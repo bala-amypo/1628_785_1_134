@@ -9,7 +9,7 @@ import com.example.demo.model.PatientProfile;
     @Repository
 public interface  PatientProfileRepository extends JpaRepository <PatientProfile ,Long>{
     boolean existsByEmail(String email);
-    boolean existsByEmail(String email);
+boolean existsByPatientId(String patientId);
 
 }
 
