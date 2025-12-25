@@ -30,8 +30,6 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-<dependencies>
-
     <!-- SPRING WEB (Servlet support) -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -78,9 +76,6 @@
         <artifactId>lombok</artifactId>
         <scope>provided</scope>
     </dependency>
-
-</dependencies>
-
     </dependencies>
 
 	<build>
