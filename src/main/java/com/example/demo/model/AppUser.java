@@ -1,3 +1,7 @@
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "app_user")
 public class AppUser {
@@ -7,8 +11,31 @@ public class AppUser {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false)
     private UserRole role;
 
-    // other fields
+    private String username;
+    private String password;
+
+    public AppUser() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
