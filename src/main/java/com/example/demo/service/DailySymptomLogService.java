@@ -4,7 +4,9 @@ import com.example.demo.model.DailySymptomLog;
 import java.util.List;
 
 public interface DailySymptomLogService {
-    DailySymptomLog recordSymptomLog(DailySymptomLog log);
-    List<DailySymptomLog> getLogsByPatient(Long patientId);
-    DailySymptomLog updateSymptomLog(Long id, DailySymptomLog log);
+
+    DailySymptomLog save(DailySymptomLog log);
+
+    List<DailySymptomLog> getAll();
+
 }

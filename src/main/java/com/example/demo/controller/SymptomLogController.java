@@ -2,32 +2,27 @@ package com.example.demo.controller;
 
 import com.example.demo.model.DailySymptomLog;
 import com.example.demo.service.DailySymptomLogService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/symptom-logs")
+@RequestMapping("/api/symptoms")
 public class SymptomLogController {
 
-    @Autowired
-    private DailySymptomLogService symptomLogService;
+    private final DailySymptomLogService service;
 
-    @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<DailySymptomLog>> getSymptomLogsByPatientId(@PathVariable Long patientId) {
-        return ResponseEntity.ok(symptomLogService.getLogsByPatient(patientId));
+    public SymptomLogController(DailySymptomLogService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<DailySymptomLog> createSymptomLog(@RequestBody DailySymptomLog log) {
-        return ResponseEntity.ok(symptomLogService.recordSymptomLog(log));
+    public DailySymptomLog save(@RequestBody DailySymptomLog log) {
+        return service.save(log);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DailySymptomLog> updateSymptomLog(@PathVariable Long id, @RequestBody DailySymptomLog log) {
-        DailySymptomLog updated = symptomLogService.updateSymptomLog(id, log);
-        return ResponseEntity.ok(updated);
+    @GetMapping
+    public List<DailySymptomLog> getAll() {
+        return service.getAll();
     }
 }
