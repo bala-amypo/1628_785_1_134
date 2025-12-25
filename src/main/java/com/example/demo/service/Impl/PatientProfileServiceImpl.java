@@ -1,52 +1,50 @@
-package com.example.demo.service.Impl;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.PatientProfile;
 import com.example.demo.repository.PatientProfileRepository;
 import com.example.demo.service.PatientProfileService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class PatientProfileServiceImpl implements PatientProfileService{
-    private final PatientProfileRepository PatientPro;
-    public PatientProfileServiceImpl(PatientProfileRepository PatientPro){
-    this.PatientPro=PatientPro;
+public class PatientProfileServiceImpl implements PatientProfileService {
+    
+    private final PatientProfileRepository repository;
+    
+    public PatientProfileServiceImpl(PatientProfileRepository repository) {
+        this.repository = repository;
     }
-   @Override
-public PatientProfile createPatient(PatientProfile patient) {
-
-    if (PatientPro.existsByEmail(patient.getEmail())) {
-        throw new IllegalArgumentException("Email already exists");
-    }
-
-    if (PatientPro.existsByPatientId(patient.getPatientId())) {
-        throw new IllegalArgumentException("Patient ID already exists");
-    }
-
-    return PatientPro.save(patient);
-}
-
-
+    
     @Override
-    public PatientProfile getPatientById(Long id){
-        return PatientPro.findById(id).orElse(null);
+    public PatientProfile createPatient(PatientProfile profile) {
+        if (repository.findByEmail(profile.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+        return repository.save(profile);
     }
+    
     @Override
-   public List<PatientProfile >getAllPatients(){
-   return PatientPro.findAll();
-
-}
-@Override
-public PatientProfile updatePatientStatus(Long id,Boolean active){
-    PatientProfile p=PatientPro.findById(id).orElse(null);
-    if(p!=null){
-        p.setActive(!p.getActive());
-
-        return PatientPro.save(p);
+    public PatientProfile getPatientById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("not found"));
     }
-    return null;
-}
-
+    
+    @Override
+    public PatientProfile updatePatientStatus(Long id, Boolean active) {
+        PatientProfile patient = getPatientById(id);
+        patient.setActive(active);
+        return repository.save(patient);
+    }
+    
+    @Override
+    public Optional<PatientProfile> findByPatientId(String patientId) {
+        return repository.findByPatientId(patientId);
+    }
+    
+    @Override
+    public List<PatientProfile> getAllPatients() {
+        return repository.findAll();
+    }
 }

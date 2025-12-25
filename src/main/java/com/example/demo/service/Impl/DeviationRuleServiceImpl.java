@@ -1,34 +1,50 @@
-package com.example.demo.service.Impl;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.DeviationRule;
 import com.example.demo.repository.DeviationRuleRepository;
 import com.example.demo.service.DeviationRuleService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class DeviationRuleServiceImpl implements DeviationRuleService{
-    // @Autowired DeviationRuleRepository Rule;
-    private final DeviationRuleRepository Rule;
-    public DeviationRuleServiceImpl(DeviationRuleRepository Rule){
-         this.Rule=Rule;
+public class DeviationRuleServiceImpl implements DeviationRuleService {
+    
+    private final DeviationRuleRepository repository;
+    
+    public DeviationRuleServiceImpl(DeviationRuleRepository repository) {
+        this.repository = repository;
     }
+    
     @Override
-    public DeviationRule createRule (DeviationRule rule){
-        return Rule.save(rule);
+    public DeviationRule createRule(DeviationRule rule) {
+        if (rule.getThresholdDeviation() <= 0) {
+            throw new IllegalArgumentException("Threshold must be positive");
+        }
+        return repository.save(rule);
     }
+    
     @Override
-  public List<DeviationRule>getRulesBySurgery(String surgeryType){
-      return Rule.findBySurgeryTypeContaining(surgeryType);
-
-   }
+    public Optional<DeviationRule> getRuleByCode(String ruleCode) {
+        return repository.findAll().stream()
+                .filter(rule -> ruleCode.equals(rule.getSymptomParameter()))
+                .findFirst();
+    }
+    
     @Override
-   public List<DeviationRule>getAllRules(){
-   return Rule.findAll();
-
-}
-
-
+    public List<DeviationRule> getActiveRules() {
+        return repository.findAll().stream()
+                .filter(DeviationRule::getActive)
+                .toList();
+    }
+    
+    @Override
+    public DeviationRule updateRule(Long id, DeviationRule rule) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("not found");
+        }
+        rule.setId(id);
+        return repository.save(rule);
+    }
 }
