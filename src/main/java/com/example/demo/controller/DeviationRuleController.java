@@ -1,36 +1,40 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.model.DeviationRule;
 import com.example.demo.service.DeviationRuleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-public class DeviationRuleController {
-    // @Autowired DeviationRuleService DRS;
-    private final DeviationRuleService DRS;
-    public DeviationRuleController(DeviationRuleService DRS){
-    this.DRS=DRS;
-    }
-    @PostMapping("/POMA")
-    public DeviationRule sendcreateRule(@RequestBody DeviationRule rule){
-        return DRS.createRule(rule);
-    }
-    @GetMapping("/GEMA/{surgeryType}")
-   public List<DeviationRule> getgetRulesBySurgery(@PathVariable String surgeryType){
-      return DRS.getRulesBySurgery(surgeryType);
-   }
-   @GetMapping("/GEMA")
-   public List<DeviationRule>getgetAllRules(){
-    return DRS.getAllRules();
-   }
+@RequestMapping("/api/rules")
+public class RuleController {
 
-   
+    @Autowired
+    private DeviationRuleService ruleService;
+
+    @GetMapping("/active")
+    public ResponseEntity<List<DeviationRule>> getActiveRules() {
+        return ResponseEntity.ok(ruleService.getActiveRules());
+    }
+
+    @GetMapping("/code/{ruleCode}")
+    public ResponseEntity<DeviationRule> getRuleByCode(@PathVariable String ruleCode) {
+        return ruleService.getRuleByCode(ruleCode)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<DeviationRule> createRule(@RequestBody DeviationRule rule) {
+        return ResponseEntity.ok(ruleService.createRule(rule));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DeviationRule> updateRule(@PathVariable Long id, @RequestBody DeviationRule rule) {
+        DeviationRule updated = ruleService.updateRule(id, rule);
+        return ResponseEntity.ok(updated);
+    }
 }

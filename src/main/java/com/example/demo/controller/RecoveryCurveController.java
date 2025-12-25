@@ -1,36 +1,32 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.model.RecoveryCurveProfile;
 import com.example.demo.service.RecoveryCurveService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/recovery-curves")
 public class RecoveryCurveController {
-    // @Autowired RecoveryCurveService RCS;
-    private final RecoveryCurveService RCS;
-    public RecoveryCurveController(RecoveryCurveService RCS){
-    this.RCS=RCS;
-    }
-    @PostMapping("/POSTMAP")
-    public RecoveryCurveProfile sendcreateCurveEntry(@RequestBody RecoveryCurveProfile entry){
-        return RCS.createCurveEntry(entry);
-    }
-    @GetMapping("/GETMAP/{surgeryType}")
-public List<RecoveryCurveProfile> getCurveForSurgery(@PathVariable String surgeryType) {
-    return RCS.getCurveForSurgery(surgeryType);
-}
-   @GetMapping("/GETMAP")
-   public List<RecoveryCurveProfile>getgetAllCurves(){
-    return RCS.getAllCurves();
-   }
 
-   
+    @Autowired
+    private RecoveryCurveService recoveryCurveService;
+
+    @GetMapping
+    public ResponseEntity<List<RecoveryCurveProfile>> getAllRecoveryCurves() {
+        return ResponseEntity.ok(recoveryCurveService.getAllCurves());
+    }
+
+    @GetMapping("/surgery/{surgeryType}")
+    public ResponseEntity<List<RecoveryCurveProfile>> getCurveForSurgery(@PathVariable String surgeryType) {
+        return ResponseEntity.ok(recoveryCurveService.getCurveForSurgery(surgeryType));
+    }
+
+    @PostMapping
+    public ResponseEntity<RecoveryCurveProfile> createRecoveryCurve(@RequestBody RecoveryCurveProfile curve) {
+        return ResponseEntity.ok(recoveryCurveService.createCurveEntry(curve));
+    }
 }

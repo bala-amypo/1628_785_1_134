@@ -1,42 +1,46 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.model.PatientProfile;
 import com.example.demo.service.PatientProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-public class PatientProfileController {
-    // @Autowired PatientProfileService PPS;
-    private final PatientProfileService PPS;
-    public PatientProfileController(PatientProfileService PPS){
-        this.PPS=PPS;
+@RequestMapping("/api/patients")
+public class PatientController {
+
+    @Autowired
+    private PatientProfileService patientService;
+
+    @GetMapping
+    public ResponseEntity<List<PatientProfile>> getAllPatients() {
+        return ResponseEntity.ok(patientService.getAllPatients());
     }
-    @PostMapping("/POST")
-    public PatientProfile sendcreatePatient(@RequestBody PatientProfile patient){
-        return PPS.createPatient(patient);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientProfile> getPatientById(@PathVariable Long id) {
+        PatientProfile patient = patientService.getPatientById(id);
+        return patient != null ? ResponseEntity.ok(patient) : ResponseEntity.notFound().build();
     }
-    @GetMapping("/GET/{id}")
-   public PatientProfile getgetPatientById(@PathVariable Long id){
-     return PPS.getPatientById(id);
-   }
-   @GetMapping("/GET")
-   public List<PatientProfile>getgetAllPatients(){
-    return PPS.getAllPatients();
-   }
 
-   @PutMapping("/PUT/{id}/status")
-   public PatientProfile putupdatePatientStatus(@PathVariable Long id,@RequestBody Boolean active){
-    return PPS.updatePatientStatus(id,active);
-   }
+    @GetMapping("/patient-id/{patientId}")
+    public ResponseEntity<PatientProfile> getPatientByPatientId(@PathVariable String patientId) {
+        return patientService.findByPatientId(patientId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
+    @PostMapping
+    public ResponseEntity<PatientProfile> createPatient(@RequestBody PatientProfile patient) {
+        return ResponseEntity.ok(patientService.createPatient(patient));
+    }
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<PatientProfile> updatePatientStatus(@PathVariable Long id, @RequestParam Boolean active) {
+        PatientProfile updated = patientService.updatePatientStatus(id, active);
+        return ResponseEntity.ok(updated);
+    }
 }
