@@ -1,30 +1,42 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "daily_symptom_logs")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DailySymptomLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patient;
-    private String fullName;
-    private LocalDate logDate;
-    private int painLevel;
-    private int mobilityLevel;
-    private int fatigueLevel;
-    private String notes;
-    private LocalDateTime submittedAt;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private PatientProfile patient;
+    
+    @Column(nullable = false)
+    private LocalDate logDate;
+    
+    @Column(nullable = false)
+    private Integer painLevel;
+    
+    @Column(nullable = false)
+    private Integer mobilityLevel;
+    
+    @Column(nullable = false)
+    private Integer fatigueLevel;
+    
+    private String notes;
+    
+    @Builder.Default
+    private LocalDateTime submittedAt = LocalDateTime.now();
 }

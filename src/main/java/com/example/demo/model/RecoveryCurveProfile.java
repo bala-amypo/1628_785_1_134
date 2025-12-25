@@ -1,28 +1,34 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "recovery_curve_profiles")
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class RecoveryCurveProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(nullable = false)
     private String surgeryType;
-    private int dayNumber;
-    private int expectedPainLevel;
-    private int expectedMobilityLevel;
-    private int expectedFatigueLevel;
-   
+    
+    @Column(nullable = false)
+    private Integer dayNumber;
+    
+    @Column(nullable = false)
+    private Integer expectedPainLevel;
+    
+    @Column(nullable = false)
+    private Integer expectedMobilityLevel;
+    
+    @Column(nullable = false)
+    private Integer expectedFatigueLevel;
 }

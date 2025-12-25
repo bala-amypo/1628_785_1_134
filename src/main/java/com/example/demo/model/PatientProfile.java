@@ -1,32 +1,40 @@
 package com.example.demo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 @Entity
+@Table(name = "patient_profiles")
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class PatientProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
-    private String patientId;
-    private String fullName;
-    private int age;
-    @Column(unique = true)
-    private String email;
-    private String surgeryType;
-    private Boolean active;
-    private LocalDateTime createdAt;
     
+    @Column(unique = true, nullable = false)
+    private String patientId;
+    
+    @Column(nullable = false)
+    private String fullName;
+    
+    private Integer age;
+    
+    @Column(unique = true, nullable = false)
+    private String email;
+    
+    @Column(nullable = false)
+    private String surgeryType;
+    
+    @Builder.Default
+    private Boolean active = true;
+    
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
