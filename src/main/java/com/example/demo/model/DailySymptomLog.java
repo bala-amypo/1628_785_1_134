@@ -1,42 +1,67 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "daily_symptom_logs")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class DailySymptomLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
-    private PatientProfile patient;
-    
-    @Column(nullable = false)
-    private LocalDate logDate;
-    
-    @Column(nullable = false)
-    private Integer painLevel;
-    
-    @Column(nullable = false)
-    private Integer mobilityLevel;
-    
-    @Column(nullable = false)
-    private Integer fatigueLevel;
-    
+
+    private String logDate;
+    private int painLevel;
+    private int mobilityLevel;
+    private int fatigueLevel;
     private String notes;
-    
-    @Builder.Default
-    private LocalDateTime submittedAt = LocalDateTime.now();
+
+    // ✅ GETTERS
+    public Long getId() {
+        return id;
+    }
+
+    public String getLogDate() {
+        return logDate;
+    }
+
+    public int getPainLevel() {
+        return painLevel;
+    }
+
+    public int getMobilityLevel() {
+        return mobilityLevel;
+    }
+
+    public int getFatigueLevel() {
+        return fatigueLevel;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    // ✅ SETTERS
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLogDate(String logDate) {
+        this.logDate = logDate;
+    }
+
+    public void setPainLevel(int painLevel) {
+        this.painLevel = painLevel;
+    }
+
+    public void setMobilityLevel(int mobilityLevel) {
+        this.mobilityLevel = mobilityLevel;
+    }
+
+    public void setFatigueLevel(int fatigueLevel) {
+        this.fatigueLevel = fatigueLevel;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

@@ -1,31 +1,49 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "deviation_rules")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class DeviationRule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
-    private String surgeryType;
-    
-    @Column(nullable = false)
+
     private String symptomParameter;
-    
-    @Column(nullable = false)
-    private Integer thresholdDeviation;
-    
-    @Builder.Default
-    private Boolean active = true;
+    private double thresholdDeviation;
+    private boolean active;
+
+    // ✅ GETTERS
+    public Long getId() {
+        return id;
+    }
+
+    public String getSymptomParameter() {
+        return symptomParameter;
+    }
+
+    public double getThresholdDeviation() {
+        return thresholdDeviation;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    // ✅ SETTERS
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSymptomParameter(String symptomParameter) {
+        this.symptomParameter = symptomParameter;
+    }
+
+    public void setThresholdDeviation(double thresholdDeviation) {
+        this.thresholdDeviation = thresholdDeviation;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
