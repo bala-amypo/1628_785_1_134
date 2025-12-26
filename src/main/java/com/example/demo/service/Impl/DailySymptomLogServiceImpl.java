@@ -1,36 +1,74 @@
-package com.example.demo.service.Impl;
+package com.example.demo.service.impl;
 
-import com.example.demo.model.DailySymptomLog;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.*;
 import com.example.demo.repository.DailySymptomLogRepository;
-import com.example.demo.service.DailySymptomLogService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.demo.repository.PatientProfileRepository;
+import com.example.demo.service.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Service
 public class DailySymptomLogServiceImpl implements DailySymptomLogService {
 
-    @Autowired
-    private DailySymptomLogRepository repository;
+    private final DailySymptomLogRepository logRepo;
+    private final PatientProfileRepository patientRepo;
+    private final RecoveryCurveService recoveryCurveService;
+    private final DeviationRuleService ruleService;
+    private final ClinicalAlertService alertService;
 
-    @Override
-    public DailySymptomLog save(DailySymptomLog log) {
-        return repository.save(log);
+    public DailySymptomLogServiceImpl(
+            DailySymptomLogRepository logRepo,
+            PatientProfileRepository patientRepo,
+            RecoveryCurveService recoveryCurveService,
+            DeviationRuleService ruleService,
+            ClinicalAlertService alertService
+    ) {
+        this.logRepo = logRepo;
+        this.patientRepo = patientRepo;
+        this.recoveryCurveService = recoveryCurveService;
+        this.ruleService = ruleService;
+        this.alertService = alertService;
     }
 
     @Override
-    public List<DailySymptomLog> getAll() {
-        return repository.findAll();
+    public DailySymptomLog recordSymptomLog(DailySymptomLog log) {
+
+        PatientProfile patient = patientRepo.findById(log.getPatientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
+
+        if (logRepo.findByPatientIdAndLogDate(
+                log.getPatientId(),
+                log.getLogDate()).isPresent()) {
+            throw new IllegalArgumentException("Duplicate log for date");
+        }
+
+        return logRepo.save(log);
     }
 
     @Override
-    public DailySymptomLog getById(Long id) {
-        return repository.findById(id).orElse(null);
+    public List<DailySymptomLog> getLogsByPatient(Long patientId) {
+        patientRepo.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
+
+        return logRepo.findByPatientId(patientId);
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public DailySymptomLog updateSymptomLog(Long id, DailySymptomLog updated) {
+
+        DailySymptomLog existing = logRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Log not found"));
+
+        PatientProfile patient = patientRepo.findById(updated.getPatientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
+
+        existing.setPainLevel(updated.getPainLevel());
+        existing.setMobilityLevel(updated.getMobilityLevel());
+        existing.setFatigueLevel(updated.getFatigueLevel());
+        existing.setAdditionalNotes(updated.getAdditionalNotes());
+        existing.setPatientId(patient.getId());
+
+        return logRepo.save(existing);
     }
 }
