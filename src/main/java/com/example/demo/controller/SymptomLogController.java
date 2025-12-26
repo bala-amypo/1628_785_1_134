@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.DailySymptomLog;
 import com.example.demo.service.DailySymptomLogService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +17,24 @@ public class SymptomLogController {
         this.service = service;
     }
 
+    // ✅ Record daily symptom log
     @PostMapping
-    public DailySymptomLog save(@RequestBody DailySymptomLog log) {
-        return service.save(log);
+    public ResponseEntity<DailySymptomLog> recordLog(@RequestBody DailySymptomLog log) {
+        return ResponseEntity.ok(service.recordSymptomLog(log));
     }
 
-    @GetMapping
-    public List<DailySymptomLog> getAll() {
-        return service.getAll();
+    // ✅ Get logs by patient (used in tests conceptually)
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<List<DailySymptomLog>> getLogsByPatient(
+            @PathVariable Long patientId) {
+        return ResponseEntity.ok(service.getLogsByPatient(patientId));
+    }
+
+    // ✅ Update existing log
+    @PutMapping("/{id}")
+    public ResponseEntity<DailySymptomLog> updateLog(
+            @PathVariable Long id,
+            @RequestBody DailySymptomLog log) {
+        return ResponseEntity.ok(service.updateSymptomLog(id, log));
     }
 }
