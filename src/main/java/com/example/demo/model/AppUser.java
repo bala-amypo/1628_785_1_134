@@ -26,32 +26,38 @@
 //                             @Enumerated(EnumType.STRING)
 //                                 private UserRole role;
 //                                 }
-                                package com.example.demo.model;
+  package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Entity
+@Table(
+    name = "app_user",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+    }
+)
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
 public class AppUser {
 
     @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-            private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-                private String email;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-                    private String password;
+    @Column(nullable = false)
+    private String password;
 
-                        private String fullName;
+    private String fullName;
 
-                            @Enumerated(EnumType.STRING)
-                                private UserRole role;
-                                }
-                                
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+}
+                              
