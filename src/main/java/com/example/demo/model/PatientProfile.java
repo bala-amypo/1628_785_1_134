@@ -1,19 +1,25 @@
 package com.example.demo.model;
 
-import lombok.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class PatientProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patientId;
-    private String fullName;
+
+    private String name;
     private Integer age;
-    private String email;
-    private String surgeryType;
-    private Boolean active = true;
-    private LocalDateTime createdAt;
 }
