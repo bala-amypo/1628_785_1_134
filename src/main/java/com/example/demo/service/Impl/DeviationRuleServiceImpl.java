@@ -1,50 +1,36 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.DeviationRule;
 import com.example.demo.repository.DeviationRuleRepository;
 import com.example.demo.service.DeviationRuleService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-@Service
 public class DeviationRuleServiceImpl implements DeviationRuleService {
-    
-    private final DeviationRuleRepository repository;
-    
-    public DeviationRuleServiceImpl(DeviationRuleRepository repository) {
-        this.repository = repository;
+
+    private final DeviationRuleRepository repo;
+
+    public DeviationRuleServiceImpl(DeviationRuleRepository repo) {
+        this.repo = repo;
     }
-    
-    @Override
+
     public DeviationRule createRule(DeviationRule rule) {
-        if (rule.getThresholdDeviation() <= 0) {
-            throw new IllegalArgumentException("Threshold must be positive");
-        }
-        return repository.save(rule);
+        return repo.save(rule);
     }
-    
-    @Override
-    public Optional<DeviationRule> getRuleByCode(String ruleCode) {
-        return repository.findAll().stream()
-                .filter(rule -> ruleCode.equals(rule.getSymptomParameter()))
-                .findFirst();
+
+    public Optional<DeviationRule> getRuleByCode(String code) {
+        return repo.findByRuleCode(code);
     }
-    
-    @Override
-    public List<DeviationRule> getActiveRules() {
-        return repository.findAll().stream()
-                .filter(DeviationRule::getActive)
-                .toList();
-    }
-    
-    @Override
+
     public DeviationRule updateRule(Long id, DeviationRule rule) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("not found");
-        }
-        rule.setId(id);
-        return repository.save(rule);
+        DeviationRule existing = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Rule not found"));
+        rule.setId(existing.getId());
+        return repo.save(rule);
+    }
+
+    public List<DeviationRule> getActiveRules() {
+        return repo.findByActiveTrue();
     }
 }

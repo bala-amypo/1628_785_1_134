@@ -1,42 +1,36 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.ClinicalAlert;
-import com.example.demo.repository.ClinicalAlertRepository;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.ClinicalAlertRecord;
+import com.example.demo.repository.ClinicalAlertRecordRepository;
 import com.example.demo.service.ClinicalAlertService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-@Service
 public class ClinicalAlertServiceImpl implements ClinicalAlertService {
-    
-    private final ClinicalAlertRepository repository;
-    
-    public ClinicalAlertServiceImpl(ClinicalAlertRepository repository) {
-        this.repository = repository;
+
+    private final ClinicalAlertRecordRepository repo;
+
+    public ClinicalAlertServiceImpl(ClinicalAlertRecordRepository repo) {
+        this.repo = repo;
     }
-    
-    @Override
-    public ClinicalAlert resolveAlert(Long id) {
-        ClinicalAlert alert = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Alert not found"));
+
+    public ClinicalAlertRecord resolveAlert(Long id) {
+        ClinicalAlertRecord alert = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Alert not found"));
         alert.setResolved(true);
-        return repository.save(alert);
+        return repo.save(alert);
     }
-    
-    @Override
-    public List<ClinicalAlert> getAlertsByPatient(Long patientId) {
-        return repository.findByPatientId(patientId);
+
+    public List<ClinicalAlertRecord> getAlertsByPatient(Long patientId) {
+        return repo.findByPatientId(patientId);
     }
-    
-    @Override
-    public Optional<ClinicalAlert> getAlertById(Long id) {
-        return repository.findById(id);
+
+    public Optional<ClinicalAlertRecord> getAlertById(Long id) {
+        return repo.findById(id);
     }
-    
-    @Override
-    public List<ClinicalAlert> getAllAlerts() {
-        return repository.findAll();
+
+    public List<ClinicalAlertRecord> getAllAlerts() {
+        return repo.findAll();
     }
 }
