@@ -1,11 +1,15 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ClinicalAlertRecord;
-import java.util.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ClinicalAlertRecordRepository {
-    Optional<ClinicalAlertRecord> findById(Long id);
+import java.util.List;
+
+@Repository
+public interface ClinicalAlertRecordRepository
+        extends JpaRepository<ClinicalAlertRecord, Long> {
+
+    // ✅ REQUIRED BY TESTS
     List<ClinicalAlertRecord> findByPatientId(Long patientId);
-    List<ClinicalAlertRecord> findAll();
-    ClinicalAlertRecord save(ClinicalAlertRecord alert);
 }

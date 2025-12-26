@@ -12,12 +12,12 @@ import java.util.Optional;
 public interface DailySymptomLogRepository
         extends JpaRepository<DailySymptomLog, Long> {
 
-    // ✅ REQUIRED BY TESTS
     List<DailySymptomLog> findByPatientId(Long patientId);
 
-    // ✅ REQUIRED BY TESTS
     Optional<DailySymptomLog> findByPatientIdAndLogDate(
             Long patientId,
             LocalDate logDate
     );
 }
+
+

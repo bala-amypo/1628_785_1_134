@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.PatientProfile;
-import java.util.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PatientProfileRepository {
-    Optional<PatientProfile> findById(Long id);
+import java.util.Optional;
+
+@Repository
+public interface PatientProfileRepository
+        extends JpaRepository<PatientProfile, Long> {
+
     Optional<PatientProfile> findByPatientId(String patientId);
-    List<PatientProfile> findAll();
-    PatientProfile save(PatientProfile profile);
 }
