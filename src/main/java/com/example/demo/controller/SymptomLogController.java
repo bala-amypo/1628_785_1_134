@@ -17,20 +17,17 @@ public class SymptomLogController {
         this.service = service;
     }
 
-    // ✅ Record daily symptom log
     @PostMapping
     public ResponseEntity<DailySymptomLog> recordLog(@RequestBody DailySymptomLog log) {
         return ResponseEntity.ok(service.recordSymptomLog(log));
     }
 
-    // ✅ Get logs by patient (used in tests conceptually)
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<DailySymptomLog>> getLogsByPatient(
             @PathVariable Long patientId) {
         return ResponseEntity.ok(service.getLogsByPatient(patientId));
     }
 
-    // ✅ Update existing log
     @PutMapping("/{id}")
     public ResponseEntity<DailySymptomLog> updateLog(
             @PathVariable Long id,
