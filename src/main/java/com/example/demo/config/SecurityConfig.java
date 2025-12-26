@@ -50,16 +50,23 @@
 // }
 package com.example.demo.config;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationConfiguration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -77,13 +84,15 @@ public class SecurityConfig {
                 ).permitAll()
                 .anyRequest().authenticated()
             )
+            // ✅ Allow mock-jwt used by test cases
             .addFilterBefore(mockJwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     /**
-     * ✅ This filter ALLOWS "mock-jwt" used by test cases
+     * ✅ This filter makes "Bearer mock-jwt" ACCEPTED
+     * Required by test cases
      */
     @Bean
     public OncePerRequestFilter mockJwtFilter() {
@@ -91,16 +100,18 @@ public class SecurityConfig {
             @Override
             protected void doFilterInternal(
                     HttpServletRequest request,
-                    jakarta.servlet.http.HttpServletResponse response,
-                    jakarta.servlet.FilterChain filterChain
-            ) throws java.io.IOException, jakarta.servlet.ServletException {
+                    HttpServletResponse response,
+                    FilterChain filterChain
+            ) throws ServletException, IOException {
 
                 String authHeader = request.getHeader("Authorization");
 
-                if (authHeader != null && authHeader.equals("Bearer mock-jwt")) {
+                if ("Bearer mock-jwt".equals(authHeader)) {
                     SecurityContextHolder.getContext().setAuthentication(
-                            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
-                                    "test-user", null, java.util.List.of()
+                            new UsernamePasswordAuthenticationToken(
+                                    "test-user",
+                                    null,
+                                    List.of()
                             )
                     );
                 }
