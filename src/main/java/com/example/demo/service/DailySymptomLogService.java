@@ -6,4 +6,6 @@ import java.util.List;
 public interface DailySymptomLogService {
     DailySymptomLog save(DailySymptomLog log);
     List<DailySymptomLog> getAll();
+    DailySymptomLog getById(Long id);
+    void deleteById(Long id);
 }

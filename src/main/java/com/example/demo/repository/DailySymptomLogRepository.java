@@ -1,12 +1,9 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.DailySymptomLog;
-import java.time.LocalDate;
-import java.util.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DailySymptomLogRepository {
-    Optional<DailySymptomLog> findById(Long id);
-    Optional<DailySymptomLog> findByPatientIdAndLogDate(Long patientId, LocalDate date);
-    List<DailySymptomLog> findByPatientId(Long patientId);
-    DailySymptomLog save(DailySymptomLog log);
+@Repository
+public interface DailySymptomLogRepository extends JpaRepository<DailySymptomLog, Long> {
 }
