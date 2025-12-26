@@ -12,7 +12,6 @@ public class AuthManagerConfig {
     @Bean
     public AuthenticationManager authenticationManager() {
         return authentication -> {
-            // ✅ Always authenticate successfully (TEST SAFE)
             return new UsernamePasswordAuthenticationToken(
                     authentication.getPrincipal(),
                     authentication.getCredentials(),
