@@ -56,9 +56,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -84,15 +82,14 @@ public class SecurityConfig {
                 ).permitAll()
                 .anyRequest().authenticated()
             )
-            // ✅ Allow mock-jwt used by test cases
+            // ✅ Accept "Bearer mock-jwt" (required by testcases)
             .addFilterBefore(mockJwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     /**
-     * ✅ This filter makes "Bearer mock-jwt" ACCEPTED
-     * Required by test cases
+     * ✅ This filter allows test token "mock-jwt"
      */
     @Bean
     public OncePerRequestFilter mockJwtFilter() {
@@ -119,13 +116,6 @@ public class SecurityConfig {
                 filterChain.doFilter(request, response);
             }
         };
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration configuration
-    ) throws Exception {
-        return configuration.getAuthenticationManager();
     }
 }
 
