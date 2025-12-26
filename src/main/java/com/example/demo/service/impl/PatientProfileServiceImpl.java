@@ -6,7 +6,9 @@ import com.example.demo.repository.PatientProfileRepository;
 import com.example.demo.service.PatientProfileService;
 
 import java.util.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PatientProfileServiceImpl implements PatientProfileService {
 
     private final PatientProfileRepository repo;

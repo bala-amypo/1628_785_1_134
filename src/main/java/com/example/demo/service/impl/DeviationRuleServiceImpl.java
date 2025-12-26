@@ -6,7 +6,9 @@ import com.example.demo.repository.DeviationRuleRepository;
 import com.example.demo.service.DeviationRuleService;
 
 import java.util.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeviationRuleServiceImpl implements DeviationRuleService {
 
     private final DeviationRuleRepository repo;
