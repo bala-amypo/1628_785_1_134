@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
@@ -21,8 +18,16 @@ public class DeviationRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ruleName;
+    // ✅ REQUIRED
+    private String ruleCode;
 
+    private String parameter;
+
+    private Integer threshold;
+
+    private String severity;
+
+    // ✅ DEFAULT TRUE REQUIRED
     @Default
     private Boolean active = true;
 }

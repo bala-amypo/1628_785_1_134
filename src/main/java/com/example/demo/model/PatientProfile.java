@@ -2,12 +2,16 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class PatientProfile {
 
@@ -15,9 +19,19 @@ public class PatientProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    // ✅ REQUIRED
+    private String patientId;
+
+    private String fullName;
+
+    private Integer age;
+
+    private String email;
 
     private String surgeryType;
 
-    private boolean active;
+    @Builder.Default
+    private Boolean active = true;
+
+    private LocalDateTime createdAt;
 }
