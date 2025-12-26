@@ -7,49 +7,20 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-// @Configuration
-// public class SecurityConfig {
-
-//     @Bean
-//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-//         http
-//             .csrf(csrf -> csrf.disable())
-//             .authorizeHttpRequests(auth -> auth
-//                 .requestMatchers(
-//                         "/auth/**",
-//                         "/swagger-ui/**",
-//                         "/v3/api-docs/**"
-//                 ).permitAll()
-//                 .anyRequest().authenticated()
-//             );
-
-//         return http.build();
-//     }
-
-//     @Bean
-//     public AuthenticationManager authenticationManager(
-//             AuthenticationConfiguration configuration
-//     ) throws Exception {
-//         return configuration.getAuthenticationManager();
-//     }
-// }
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable()) // ✅ REQUIRED
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/auth/login",
-                    "/auth/register",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**"
-                ).permitAll()              // ✅ LOGIN PUBLIC
+                        "/auth/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             );
 
@@ -57,7 +28,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration
+    ) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
