@@ -17,8 +17,6 @@ public class DeviationRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // ✅ REQUIRED
     private String ruleCode;
 
     private String parameter;
@@ -27,7 +25,6 @@ public class DeviationRule {
 
     private String severity;
 
-    // ✅ DEFAULT TRUE REQUIRED
     @Default
     private Boolean active = true;
 }

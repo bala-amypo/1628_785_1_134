@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface ClinicalAlertRecordRepository
         extends JpaRepository<ClinicalAlertRecord, Long> {
-
-    // ✅ REQUIRED BY TESTS
     List<ClinicalAlertRecord> findByPatientId(Long patientId);
 }

@@ -20,18 +20,10 @@ public class ClinicalAlertRecord {
     private Long id;
 
     private Long patientId;
-
-    // ✅ REQUIRED BY TESTS
     private Long logId;
-
     private String alertType;
-
-    // ✅ REQUIRED BY TESTS
     private String severity;
-
     private String message;
-
-    // ✅ MUST DEFAULT TO FALSE
     @Builder.Default
     private Boolean resolved = false;
 

@@ -22,8 +22,6 @@ public class DailySymptomLog {
     private Long patientId;
 
     private LocalDate logDate;
-
-    // ✅ REQUIRED BY TESTS
     private Integer painLevel;
 
     private Integer mobilityLevel;

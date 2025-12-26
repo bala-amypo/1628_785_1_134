@@ -19,7 +19,6 @@ public class PatientProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ REQUIRED
     private String patientId;
 
     private String fullName;
