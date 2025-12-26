@@ -1,16 +1,24 @@
 package com.example.demo.model;
 
-import lombok.*;
+import jakarta.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class RecoveryCurveProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String surgeryType;
+
     private Integer dayNumber;
-    private Integer expectedPainLevel;
-    private Integer expectedMobilityLevel;
-    private Integer expectedFatigueLevel;
+
+    private String expectedCondition;
 }
