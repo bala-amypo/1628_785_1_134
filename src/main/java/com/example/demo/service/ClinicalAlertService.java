@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ClinicalAlert;
-import java.util.List;
-import java.util.Optional;
+import com.example.demo.model.ClinicalAlertRecord;
+import java.util.*;
 
 public interface ClinicalAlertService {
-    ClinicalAlert resolveAlert(Long id);
-    List<ClinicalAlert> getAlertsByPatient(Long patientId);
-    Optional<ClinicalAlert> getAlertById(Long id);
-    List<ClinicalAlert> getAllAlerts();
+    ClinicalAlertRecord resolveAlert(Long id);
+    List<ClinicalAlertRecord> getAlertsByPatient(Long patientId);
+    Optional<ClinicalAlertRecord> getAlertById(Long id);
+    List<ClinicalAlertRecord> getAllAlerts();
 }

@@ -1,32 +1,42 @@
-package com.example.demo.service.Impl;
+package com.example.demo.service.impl;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.model.AppUser;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.dto.*;
+import com.example.demo.model.*;
+import com.example.demo.repository.AppUserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.AuthService;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final AppUserRepository repo;
+    private final PasswordEncoder encoder;
+    private final AuthenticationManager authManager;
+    private final JwtTokenProvider jwt;
 
-    public AuthServiceImpl(UserRepository userRepository,
-                           JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.jwtTokenProvider = jwtTokenProvider;
+    public AuthResponse register(RegisterRequest req) {
+        AppUser user = AppUser.builder()
+                .email(req.getEmail())
+                .password(encoder.encode(req.getPassword()))
+                .fullName(req.getFullName())
+                .role(UserRole.CLINICIAN)
+                .build();
+
+        AppUser saved = repo.save(user);
+        return new AuthResponse(saved.getEmail(), jwt.generateToken(saved));
     }
 
-    @Override
-    public AuthResponse login(AuthRequest request) {
-        AppUser user = userRepository
-                .findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public AuthResponse login(AuthRequest req) {
+        authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword())
+        );
 
-        String token = jwtTokenProvider.generateToken(user.getUsername());
-        return new AuthResponse(token);
+        AppUser user = repo.findByEmail(req.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user"));
+
+        return new AuthResponse(user.getEmail(), jwt.generateToken(user));
     }
 }

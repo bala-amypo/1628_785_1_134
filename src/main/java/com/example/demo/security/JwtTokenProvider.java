@@ -1,11 +1,13 @@
 package com.example.demo.security;
 
-import org.springframework.stereotype.Component;
+import com.example.demo.model.AppUser;
 
-@Component
 public class JwtTokenProvider {
+    public String generateToken(AppUser user) {
+        return "mock-jwt";
+    }
 
-    public String generateToken(String username) {
-        return "DUMMY_TOKEN_" + username;
+    public boolean validateToken(String token) {
+        return !"bad-token".equals(token);
     }
 }
